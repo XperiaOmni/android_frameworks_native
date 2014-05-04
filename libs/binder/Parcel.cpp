@@ -823,6 +823,10 @@ extern "C" status_t _ZN7android6Parcel5writeERKNS0_26FlattenableHelperInterfaceE
 
 extern "C" status_t _ZN7android6Parcel5writeERKNS_11FlattenableE(void *parcel, void *val) {
     return _ZN7android6Parcel5writeERKNS0_26FlattenableHelperInterfaceE(parcel, val);
+
+status_t Parcel::write(const Flattenable& val) {
+    const FlattenableHelper helper(val);
+    return write(helper);
 }
 
 status_t Parcel::write(const FlattenableHelperInterface& val)
@@ -1203,10 +1207,15 @@ status_t Parcel::readBlob(size_t len, ReadableBlob* outBlob) const
     return NO_ERROR;
 }
 
+
 extern "C" status_t _ZNK7android6Parcel4readERNS0_26FlattenableHelperInterfaceE(void *parcel, void *val);
 
 extern "C" status_t _ZNK7android6Parcel4readERNS_11FlattenableE(void *parcel, void *val) {
     return _ZNK7android6Parcel4readERNS0_26FlattenableHelperInterfaceE(parcel, val);
+
+status_t Parcel::read(Flattenable& val) const {
+    FlattenableHelper helper(val);
+    return read(helper);
 }
 
 status_t Parcel::read(FlattenableHelperInterface& val) const

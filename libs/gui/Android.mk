@@ -39,10 +39,11 @@ LOCAL_SHARED_LIBRARIES := \
 	libutils \
 	liblog
 
-
-ifeq ($(call is-board-platform-in-list, mpq8092), true)
-    LOCAL_CFLAGS            += -DVFM_AVAILABLE
-endif
+#ifdef STE_HARDWARE
+LOCAL_SHARED_LIBRARIES += \
+       libhardware \
+       libhardware_legacy
+#endif
 
 # Executed only on QCOM BSPs
 ifeq ($(TARGET_USES_QCOM_BSP),true)
